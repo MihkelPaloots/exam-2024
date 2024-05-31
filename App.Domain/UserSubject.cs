@@ -16,4 +16,5 @@ public class UserSubject: BaseEntityId, IDomainAppUser<AppUser>
     public Role? Role { get; set; }
     
     public string? Mark { get; set; }
+    public bool? Enrolled { get; set; }
 }

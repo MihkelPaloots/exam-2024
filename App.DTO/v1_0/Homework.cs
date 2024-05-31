@@ -4,5 +4,6 @@ public class Homework
 {
     public string Title { get; set; } = default!;
     public string Description { get; set; } = default!;
-    public string Mark { get; set; }
+    public DateTime DueDate { get; set; } = default!;
+    public string? Mark { get; set; }
 }

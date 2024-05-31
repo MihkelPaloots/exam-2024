@@ -9,6 +9,8 @@ public class Subject
     
     public string Teacher { get; set; } = default!;
     public string? Mark { get; set; } = default!;
-    public List<Homework> Homeworks { get; set; }
-    
+    public List<Homework>? Homeworks { get; set; }
+    public List<Student>? EnrolledStudents { get; set; }
+    public List<Student>? WaitingListStudents { get; set; }
+    public string? Status { get; set; }
 }

@@ -8,5 +8,6 @@ public class JWTResponse
     public string FirstName { get; set; } = default!;
     
     public string LastName { get; set; } = default!;
+    public string Role { get; set; } = default!;
 
 }

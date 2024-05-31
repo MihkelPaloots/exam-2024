@@ -2,107 +2,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Contracts.DAL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using App.DAL.EF;
 using App.Domain;
+using App.Domain.Identity;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebApp.ApiControllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]/[action]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class SubjectsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IAppUnitOfWork _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public SubjectsController(AppDbContext context)
+        public SubjectsController(IAppUnitOfWork context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Subjects
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Subject>>> GetSubjects()
+        public async Task<ActionResult<IEnumerable<App.DTO.v1_0.Subject>>> GetSubjects()
         {
-            return await _context.Subjects.ToListAsync();
-        }
-
-        // GET: api/Subjects/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Subject>> GetSubject(Guid id)
-        {
-            var subject = await _context.Subjects.FindAsync(id);
-
-            if (subject == null)
-            {
-                return NotFound();
-            }
-
-            return subject;
-        }
-
-        // PUT: api/Subjects/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSubject(Guid id, Subject subject)
-        {
-            if (id != subject.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(subject).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SubjectExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Subjects
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Subject>> PostSubject(Subject subject)
-        {
-            _context.Subjects.Add(subject);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSubject", new { id = subject.Id }, subject);
-        }
-
-        // DELETE: api/Subjects/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSubject(Guid id)
-        {
-            var subject = await _context.Subjects.FindAsync(id);
-            if (subject == null)
-            {
-                return NotFound();
-            }
-
-            _context.Subjects.Remove(subject);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool SubjectExists(Guid id)
-        {
-            return _context.Subjects.Any(e => e.Id == id);
+            var id = _userManager.GetUserId(User);
+            Console.WriteLine(id);
+            var subjects = await _context.Subjects.GetAvailableSubjects(id);
+            return Ok(subjects);
         }
     }
 }

@@ -61,12 +61,19 @@ namespace WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AppUserId,SubjectId,RoleId,Mark,Id")] UserSubject userSubject)
+        public async Task<IActionResult> Create([Bind("AppUserId,SubjectId,RoleId,Mark,Enrolled,Id")] UserSubject userSubject)
         {
-            userSubject.Id = Guid.NewGuid();
-            _context.Add(userSubject);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                userSubject.Id = Guid.NewGuid();
+                _context.Add(userSubject);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "FirstName", userSubject.AppUserId);
+            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "RoleName", userSubject.RoleId);
+            ViewData["SubjectId"] = new SelectList(_context.Subjects, "Id", "Code", userSubject.SubjectId);
+            return View(userSubject);
         }
 
         // GET: UserSubjects/Edit/5
@@ -93,7 +100,7 @@ namespace WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("AppUserId,SubjectId,RoleId,Mark,Id")] UserSubject userSubject)
+        public async Task<IActionResult> Edit(Guid id, [Bind("AppUserId,SubjectId,RoleId,Mark,Enrolled,Id")] UserSubject userSubject)
         {
             if (id != userSubject.Id)
             {

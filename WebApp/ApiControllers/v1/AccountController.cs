@@ -143,7 +143,7 @@ public class AccountController : ControllerBase
             Jwt = jwt,
             RefreshToken = refreshToken.RefreshToken,
             FirstName = appUser.FirstName,
-            LastName = appUser.LastName
+            LastName = appUser.LastName,
         };
         return Ok(res);
     }

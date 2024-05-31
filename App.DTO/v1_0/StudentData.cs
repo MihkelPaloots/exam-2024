@@ -5,4 +5,5 @@ public class StudentData
     public double averageMark { get; set; }
     public int totalAcademicPoints { get; set; }
     public List<Subject> subjects { get; set; }
+    
 }

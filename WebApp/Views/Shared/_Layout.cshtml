@@ -28,21 +28,23 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@App.Resources.Views.Shared._Layout.Privacy</a>
                     </li>
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item dropdown text-dark">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
-                                    <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Countries" asp-action="Index">Countries</a>
-                                </li>
-                            </ul>
-                        </li>
-                    }
+                    <li class="nav-item dropdown text-dark">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Subjects" asp-action="Index">Subjects</a>
+                                <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                                <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Countries" asp-action="Index">Countries</a>
+                                <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="UserSubjects" asp-action="Index">UserSubjects</a>
+                                <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Teacher" asp-action="Index">UserSubjectHomeWorks</a>
+                                <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Homeworks" asp-action="Index">Homeworks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
                     <partial name="_LanguageSelectionPartial"/>
 
                 </ul>
