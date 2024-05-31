@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Views\Home\_Index.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>_Index.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\Shared\_Layout.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>_Layout.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\Events\_Events.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>_Events.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\Login\_Login.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>_Login.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Views\Home\_Index.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>_Index.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Views\Shared\_Layout.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>_Layout.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Views\Events\_Events.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>_Events.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Views\Login\_Login.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>_Login.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+</Project>
